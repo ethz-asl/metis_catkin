@@ -1,0 +1,16 @@
+--- ../tmp/metis-5.1.0/CMakeLists.txt	2015-02-15 23:08:40.000000000 +0100
++++ ../tmp/metis-5.1.0/CMakeLists.txt.patched	2015-02-15 23:06:23.000000000 +0100
+@@ -17,11 +17,11 @@
+   set(METIS_LIBRARY_TYPE STATIC)
+ endif(SHARED)
+ 
+-include(${GKLIB_PATH}/GKlibSystem.cmake)
++#include(${GKLIB_PATH}/GKlibSystem.cmake)
+ # Add include directories.
+ include_directories(${GKLIB_PATH})
+ include_directories(include)
+ # Recursively look for CMakeLists.txt in subdirs.
+ add_subdirectory("include")
+ add_subdirectory("libmetis")
+-add_subdirectory("programs")
++#add_subdirectory("programs")

@@ -10,16 +10,14 @@ file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include)
 ExternalProject_Add(metis_src
   URL https://github.com/ethz-asl/thirdparty_library_binaries/raw/master/metis-5.1.0.tar.gz
   UPDATE_COMMAND ""
-  CONFIGURE_COMMAND cd ../metis_src && make config shared=1 prefix=${CATKIN_DEVEL_PREFIX}
-  BUILD_COMMAND cd ../metis_src && (make || make VERBOSE=1 || true)  # Hack to fix metis make files.
-  INSTALL_COMMAND ""
+  CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=${CATKIN_DEVEL_PREFIX} -DCMAKE_BUILD_TYPE:STRING=Release
+  PATCH_COMMAND cd ../metis_src/ && patch -N CMakeLists.txt ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt.patch
 )
-
 
 cs_add_library(${PROJECT_NAME} src/dependency_tracker.cc)
 add_dependencies(${PROJECT_NAME} metis_src)
 target_link_libraries(${PROJECT_NAME} 
-  ${CATKIN_DEVEL_PREFIX}/lib/libmetis${CMAKE_SHARED_LIBRARY_SUFFIX})
+  ${CATKIN_DEVEL_PREFIX}/lib/libmetis${CMAKE_STATIC_LIBRARY_SUFFIX})
 
 cs_install()
 
