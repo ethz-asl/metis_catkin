@@ -10,8 +10,7 @@ file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include)
 ExternalProject_Add(metis_src
   URL https://github.com/ethz-asl/thirdparty_library_binaries/raw/master/metis-5.1.0.tar.gz
   UPDATE_COMMAND ""
-  CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=${CATKIN_DEVEL_PREFIX}
-  -DBUILD_SHARED_LIBS:BOOL=true -DCMAKE_BUILD_TYPE:STRING=Release
+  CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=${CATKIN_DEVEL_PREFIX} -DCMAKE_BUILD_TYPE:STRING=Release
   PATCH_COMMAND cd ../metis_src/ && patch -N CMakeLists.txt ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt.patch
 )
 
