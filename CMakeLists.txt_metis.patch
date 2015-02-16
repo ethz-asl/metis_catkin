@@ -1,0 +1,12 @@
+--- ../tmp/metis-5.1.0/libmetis/CMakeLists.txt	2013-03-30 17:24:45.000000000 +0100
++++ ../tmp/metis-5.1.0/libmetis/CMakeLists.txt.patched	2015-02-16 08:21:38.000000000 +0100
+@@ -1,5 +1,9 @@
+ # Add this directory for internal users.
+ include_directories(.)
++
++SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
++SET (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
++
+ # Find sources.
+ file(GLOB metis_sources *.c)
+ # Build libmetis.
