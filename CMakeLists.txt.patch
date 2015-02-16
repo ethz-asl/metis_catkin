@@ -1,5 +1,14 @@
 --- ../tmp/metis-5.1.0/CMakeLists.txt	2015-02-15 23:08:40.000000000 +0100
-+++ ../tmp/metis-5.1.0/CMakeLists.txt.patched	2015-02-15 23:06:23.000000000 +0100
++++ ../tmp/metis-5.1.0/CMakeLists.txt.patched	2015-02-16 09:02:41.000000000 +0100
+@@ -2,7 +2,7 @@
+ project(METIS)
+ 
+ set(GKLIB_PATH "GKlib" CACHE PATH "path to GKlib")
+-set(SHARED FALSE CACHE BOOL "build a shared library")
++set(SHARED TRUE CACHE BOOL "build a shared library")
+ 
+ if(MSVC)
+   set(METIS_INSTALL FALSE)
 @@ -17,11 +17,11 @@
    set(METIS_LIBRARY_TYPE STATIC)
  endif(SHARED)
