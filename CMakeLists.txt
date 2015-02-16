@@ -17,7 +17,7 @@ ExternalProject_Add(metis_src
 cs_add_library(${PROJECT_NAME} src/dependency_tracker.cc)
 add_dependencies(${PROJECT_NAME} metis_src)
 target_link_libraries(${PROJECT_NAME} 
-  ${CATKIN_DEVEL_PREFIX}/lib/libmetis${CMAKE_STATIC_LIBRARY_SUFFIX})
+  ${CATKIN_DEVEL_PREFIX}/lib/libmetis${CMAKE_SHARED_LIBRARY_SUFFIX})
 
 cs_install()
 
