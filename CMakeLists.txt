@@ -7,11 +7,27 @@ catkin_simple()
 include(ExternalProject)
 
 file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include)
-ExternalProject_Add(metis_src
-  URL https://github.com/ethz-asl/thirdparty_library_binaries/raw/master/metis-5.1.0.tar.gz
-  UPDATE_COMMAND ""
-  CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=${CATKIN_DEVEL_PREFIX} -DCMAKE_BUILD_TYPE:STRING=Release -DSHARED:BOOL=TRUE -DGKLIB_PATH:STRING=${CMAKE_CURRENT_BINARY_DIR}/metis_src-prefix/src/metis_src/GKlib
-)
+
+# The following logic addresses a potential Xcode bug.
+# It is documented at
+#  https://www.mail-archive.com/petsc-users@mcs.anl.gov/msg28472.html
+# and uses gcc as workaround.
+# Consider removal when updating to a new metis version.
+if( (CMAKE_C_COMPILER MATCHES "(.*)Xcode(.*)") AND (CMAKE_C_COMPILER_VERSION MATCHES "7.3(.*)") )
+  message("Use of XCode infeasible due to potential compiler bug. Switching to gcc.")
+  ExternalProject_Add(metis_src
+    URL https://github.com/ethz-asl/thirdparty_library_binaries/raw/master/metis-5.1.0.tar.gz
+    UPDATE_COMMAND ""
+    CMAKE_ARGS -DCMAKE_TOOLCHAIN_FILE=${CMAKE_SOURCE_DIR}/gcc.cmake -DCMAKE_INSTALL_PREFIX:PATH=${CATKIN_DEVEL_PREFIX} -DCMAKE_BUILD_TYPE:STRING=Release -DSHARED:BOOL=TRUE -DGKLIB_PATH:STRING=${CMAKE_CURRENT_BINARY_DIR}/metis_src-prefix/src/metis_src/GKlib
+  )
+else() 
+  ExternalProject_Add(metis_src
+    URL https://github.com/ethz-asl/thirdparty_library_binaries/raw/master/metis-5.1.0.tar.gz
+    UPDATE_COMMAND ""
+    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=${CATKIN_DEVEL_PREFIX} -DCMAKE_BUILD_TYPE:STRING=Release -DSHARED:BOOL=TRUE -DGKLI
+B_PATH:STRING=${CMAKE_CURRENT_BINARY_DIR}/metis_src-prefix/src/metis_src/GKlib
+  ) 
+endif()
 
 cs_add_library(${PROJECT_NAME} src/dependency_tracker.cc)
 add_dependencies(${PROJECT_NAME} metis_src)
