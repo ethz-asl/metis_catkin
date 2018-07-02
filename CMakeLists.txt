@@ -31,12 +31,10 @@ else()
   ) 
 endif()
 
-cs_add_library(${PROJECT_NAME} src/dependency_tracker.cc)
-add_dependencies(${PROJECT_NAME} metis_src)
-target_link_libraries(${PROJECT_NAME} 
-  ${CATKIN_DEVEL_PREFIX}/lib/libmetis${CMAKE_SHARED_LIBRARY_SUFFIX})
-
-cs_install()
-
+install(FILES ${CATKIN_DEVEL_PREFIX}/include/metis.h
+        DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION})
+install(DIRECTORY ${CATKIN_DEVEL_PREFIX}/lib/
+        DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+        FILES_MATCHING PATTERN "libmetis*")
 cs_export(INCLUDE_DIRS ${CATKIN_DEVEL_PREFIX}/include
-  CFG_EXTRAS metis-extras.cmake)
+          LIBRARIES metis)
