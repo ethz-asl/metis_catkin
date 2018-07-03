@@ -1,6 +1,6 @@
 <package>
   <name>metis_catkin</name>
-  <version>0.0.0</version>
+  <version>5.1.0</version>
   <description>metis graph partitioning</description>
   <maintainer email="slynen@ethz.ch">Simon Lynen</maintainer>
 
